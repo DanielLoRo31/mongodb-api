@@ -1,0 +1,26 @@
+{
+  "name": "delr-practice-node",
+  "version": "1.0.0",
+  "description": "Proyecto NodeJS",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon .",
+    "nodemon": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "NodeJS",
+    "Server"
+  ],
+  "author": "Daniel Lozano",
+  "license": "MIT",
+  "dependencies": {
+    "aws-serverless-express": "^3.3.8",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.10.15",
+    "morgan": "^1.10.0"
+  }
+}
