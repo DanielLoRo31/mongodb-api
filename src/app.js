@@ -26,7 +26,7 @@ app.use(morgan("dev"));
 
 mongoose
   .connect("mongodb://localhost:27017/SalleApp")
-  //.connect("mongodb+srv://nintendo:QaMzcGTlIBI4poL9@myfirstcluster.jfcnj.mongodb.net/SalleApp?retryWrites=true&w=majority")
+  //.connect("mongodb+srv://<user>:<Password>@myfirstcluster.jfcnj.mongodb.net/SalleApp?retryWrites=true&w=majority")
   .then((db) => {
     console.log("Conectado a mongodb ");
   })
