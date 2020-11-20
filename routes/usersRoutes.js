@@ -1,19 +1,21 @@
-const express = require('express');
-const router = express.Router()
-const userController = require('../controllers/userControllerMongo')
+const express = require("express");
+const router = express.Router();
 
+// accedemos al controlador
+const userController = require("../controllers/userControllerMongo");
 
-router.get('/', userController.get);
+router.get("/", userController.get);
 
-router.get('/:id', userController.getById)
+router.get("/:id", userController.getById);
 
-router.get('/role/:role', userController.getByRole)
+router.get("/role/:role", userController.getByRole);
 
-router.post('/', userController.post)
+router.post("/", userController.post);
 
-router.patch('/:id', userController.patch)
+// el put es para actualizar todo el archivo
+//el patch para actualizar solo algunos
+router.patch("/:id", userController.patch);
 
-router.delete('/:id', userController.delete)
-
+router.delete("/:id", userController.delete);
 
 module.exports = router;

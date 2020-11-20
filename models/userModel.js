@@ -14,11 +14,13 @@ const User = new Schema(
               if (value && value.includes("@")) {
                 res(true);
               } else {
-                rej(false);
+                res(false);
               }
-            }, 5000);
+            }, 500);
           });
         },
+        message: `La propiedad no es valido`
+        //message: (prop) => `La propiedad ${prop.value} no es valido` -Solo para validaciones sincronas
       },
     },
     password: {
@@ -34,7 +36,7 @@ const User = new Schema(
     score: {
       type: Number,
       min: 1,
-      max: 5,
+      max: [5, 'No puede haber mas de 5'],
     },
     description: String,
   },

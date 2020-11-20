@@ -1,38 +1,5 @@
-const User = require("../models/user.model");
+const User = require("../models/userModel");
 const userController = {};
-
-const users = [
-  {
-    id: 1,
-    email: "omar.salas@jynsystems.com",
-    password: "123",
-    role: "teacher",
-  },
-  {
-    id: 2,
-    email: "andres@jynsystems.com",
-    password: "123",
-    role: "student",
-  },
-  {
-    id: 3,
-    email: "luis@jynsystems.com",
-    password: "123",
-    role: "student",
-  },
-  {
-    id: 4,
-    email: "felix@jynsystems.com",
-    password: "123",
-    role: "teacher",
-  },
-  {
-    id: 5,
-    email: "daniel@jynsystems.com",
-    password: "123",
-    role: "teacher",
-  },
-];
 
 userController.get = async (req, res) => {
   try {
@@ -99,12 +66,12 @@ userController.post = async (req, res) => {
   }
 };
 
-userController.patch = (req, res) => {
+userController.patch = async (req, res) => {
   const { id } = req.params;
-  const query = req.query;
-  const userFound = users.find((userF) => userF.id == id);
 
-  if (userFound) {
+  try {
+    var userExpect = {};
+
     const expectedParams = [
       "email",
       "password",
@@ -113,33 +80,35 @@ userController.patch = (req, res) => {
       "score",
       "description",
     ];
+
     Object.keys(req.body).forEach((p) => {
       if (expectedParams.includes(p)) {
-        userFound[p] = req.body[p];
+        userExpect[p] = req.body[p];
       }
     });
-    res.json(userFound);
-  } else {
-    res.status(404).send("el usuario que desea actualizar no existe");
+
+    await User.update({ _id: id }, userExpect);
+
+    res
+      .status(200)
+      .json({ success: "El usuario se actualizo correctamente. " });
+  } catch (error) {
+    res
+      .status(404)
+      .send({ error: "el usuario que desea actualizar no existe" });
   }
 };
 
 userController.delete = async (req, res) => {
   const { id } = req.params;
-  
-  try {
-    const remove = await User.deleteOne({ _id: id })
-    res.status(200).json({success: 'El usuario se elimino correctamente. '});
-  } catch (error) {
-    res.status(404).json({error: "el usuario que desea actualizar no existe"});
-  }
 
-  if (remove) {
-    const idDelete = users[index].id;
-    users.splice(index, 1);
-    res.status(200).send(`Se elimino el usuario con el id ${idDelete}`);
-  } else {
-    res.status(400).send("el usuario que desea actualizar no existe");
+  try {
+    const remove = await User.deleteOne({ _id: id });
+    res.status(200).json({ success: "El usuario se elimino correctamente. " });
+  } catch (error) {
+    res
+      .status(404)
+      .json({ error: "el usuario que desea actualizar no existe" });
   }
 };
 
